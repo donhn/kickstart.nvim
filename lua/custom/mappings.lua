@@ -1,6 +1,11 @@
 local map = vim.keymap.set
 
 -- General
+
+-- Clear highlights on search when pressing <Esc> in normal mode
+--  See `:help hlsearch`
+map('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
 map('n', '<C-c>', '<cmd>%y+<CR>', { desc = 'Copy whole file' })
 map('n', '<leader>n', '<cmd>set nu!<CR>', { desc = 'Toggle line numbers' })
 map('n', '<leader>rn', '<cmd>set rnu!<CR>', { desc = 'Toggle relative numers' })
