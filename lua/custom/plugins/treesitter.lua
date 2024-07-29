@@ -5,8 +5,10 @@ return { -- Highlight, edit, and navigate code
     ensure_installed = {
       'bash',
       'c',
+      'cpp',
       'diff',
       'html',
+      'json',
       'lua',
       'luadoc',
       'markdown',
