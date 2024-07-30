@@ -1,3 +1,10 @@
+local function truncate(str, max_length)
+  if #str > max_length then
+    return str:sub(1, max_length) .. '...'
+  end
+  return str
+end
+
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -22,7 +29,12 @@ return {
     },
     sections = {
       lualine_a = { 'mode' },
-      lualine_b = { 'branch', 'diff' },
+      lualine_b = { {
+        'branch',
+        fmt = function(str)
+          return truncate(str, 20)
+        end,
+      }, 'diff' },
       lualine_c = { 'filename', { 'navic', color_correction = 'dynamic' } },
       lualine_x = { 'diagnostics', 'filetype' },
       lualine_y = { 'progress' },
