@@ -14,7 +14,9 @@ map('n', '<C-l>', ':vertical resize +5<CR>', { desc = 'increase vertical size', 
 map('n', '<C-j>', ':horizontal resize -5<CR>', { desc = 'decrease horizontal size', silent = true })
 map('n', '<C-k>', ':horizontal resize +5<CR>', { desc = 'increase horizontal size', silent = true })
 
-map({ 'n', 'v', silent = true }, 'x', '"_x', { desc = 'blackhole delete' })
+map({ 'n', 'v' }, 'x', '"_x', { desc = 'blackhole delete' })
+map('n', '<leader>x', ':bd<CR>', { desc = 'close current buffers' })
+map('n', '<leader>X', ':%bd<CR>', { desc = 'close all buffers' })
 
 -- NvimTree
 map('n', '<C-n>', ':NvimTreeToggle<CR>', { desc = 'Open or close NvimTree', silent = true })
