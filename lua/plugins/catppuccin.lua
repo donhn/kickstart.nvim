@@ -22,7 +22,7 @@ return {
     }
   end,
   init = function()
-    vim.cmd.colorscheme 'catppuccin-latte'
+    -- vim.cmd.colorscheme 'catppuccin-latte'
     vim.api.nvim_set_hl(0, 'NormalFloat', {})
     vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
   end,
