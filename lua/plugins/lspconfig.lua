@@ -22,6 +22,9 @@ return {
           [vim.diagnostic.severity.HINT] = icons.hint,
         },
       },
+      float = {
+        border = 'rounded',
+      },
     }
   end,
   config = function()
