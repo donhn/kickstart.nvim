@@ -14,11 +14,6 @@ return {
       desc = 'Trouble Diagnostics Toggle',
     },
     {
-      '<leader>tbd',
-      '<cmd>Trouble diagnostics win.position=bottom filter.buf=0<cr>',
-      desc = 'Trouble Diagnostics Focus (Buffer)',
-    },
-    {
       '<leader>ts',
       '<cmd>Trouble symbols focus=true<cr>',
       desc = 'Trouble Symbols Focus',
@@ -27,11 +22,6 @@ return {
       '<leader>tS',
       '<cmd>Trouble symbols toggle focus=false<cr>',
       desc = 'Trouble Symbols Toggle',
-    },
-    {
-      '<leader>tbs',
-      '<cmd>Trouble symbols focus=true filter.buf=0<cr>',
-      desc = 'Trouble Symbols Focus (Buffer)',
     },
     {
       '<leader>tr',
