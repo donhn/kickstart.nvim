@@ -6,7 +6,5 @@ return {
     require('caret').setup {
       -- ...
     }
-
-    vim.cmd.colorscheme 'caret'
   end,
 }

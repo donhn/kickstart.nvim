@@ -158,6 +158,7 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 require 'mappings'
@@ -325,6 +326,10 @@ require('lazy').setup({
     },
   },
 })
+
+-- Colorscheme / Theme
+vim.opt.background = 'light'
+vim.cmd.colorscheme 'caret'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
