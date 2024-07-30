@@ -18,6 +18,18 @@ map({ 'n', 'v' }, 'x', '"_x', { desc = 'blackhole delete' })
 map('n', '<leader>x', ':bd<CR>', { desc = 'close current buffers' })
 map('n', '<leader>X', ':%bd<CR>', { desc = 'close all buffers' })
 
+-- Toggle
+local function toggleBackground()
+  local background = vim.api.nvim_get_option_value('background', {})
+  if background == 'dark' then
+    vim.api.nvim_set_option_value('background', 'light', {})
+  else
+    vim.api.nvim_set_option_value('background', 'dark', {})
+  end
+end
+
+map('n', '<leader>tb', toggleBackground, { desc = 'Toggle background light/dark', silent = true })
+
 -- NvimTree
 map('n', '<C-n>', ':NvimTreeToggle<CR>', { desc = 'Open or close NvimTree', silent = true })
 map('n', '<leader>e', ':NvimTreeFocus<CR>', { desc = 'Focus NvimTree', silent = true })
