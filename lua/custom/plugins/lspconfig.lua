@@ -11,6 +11,19 @@ return {
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     { 'j-hui/fidget.nvim', opts = {} },
   },
+  init = function()
+    local icons = { error = ' ', warn = ' ', info = ' ', hint = ' ' }
+    vim.diagnostic.config {
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = icons.error,
+          [vim.diagnostic.severity.WARN] = icons.warn,
+          [vim.diagnostic.severity.INFO] = icons.info,
+          [vim.diagnostic.severity.HINT] = icons.hint,
+        },
+      },
+    }
+  end,
   config = function()
     -- Brief aside: **What is LSP?**
     --
@@ -161,6 +174,18 @@ return {
       -- tsserver = {},
       --
 
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = 'workspace',
+            },
+          },
+        },
+      },
+
       lua_ls = {
         -- cmd = {...},
         -- filetypes = { ...},
@@ -189,7 +214,22 @@ return {
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      'stylua', -- Used to format Lua code
+      -- lua
+      'stylua',
+      -- bash
+      'beautysh',
+      'bashls',
+      -- Python
+      'black',
+      'pyright',
+      -- 'jedi-language-server',
+      -- C/C++
+      'clangd',
+      'clang-format',
+      'cmake',
+      'cmake-language-server',
+      'cmakelang',
+      'cpptools',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
