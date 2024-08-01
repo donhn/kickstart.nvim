@@ -328,7 +328,8 @@ require('lazy').setup({
 
 -- Colorscheme / Theme
 vim.opt.background = 'light'
-vim.cmd.colorscheme 'caret'
+-- vim.cmd.colorscheme 'caret'
+vim.cmd.colorscheme 'catppuccin'
 
 vim.api.nvim_set_hl(0, 'NormalFloat', {})
 vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
