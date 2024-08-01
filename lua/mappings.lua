@@ -1,6 +1,8 @@
 local map = vim.keymap.set
 
+--------------------------------------------------------------------------------
 -- General
+--------------------------------------------------------------------------------
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -18,7 +20,6 @@ map({ 'n', 'v' }, 'x', '"_x', { desc = 'blackhole delete' })
 map('n', '<leader>x', ':bd<CR>', { desc = 'close current buffers' })
 map('n', '<leader>X', ':%bd<CR>', { desc = 'close all buffers' })
 
--- Toggle
 local function toggleBackground()
   local background = vim.api.nvim_get_option_value('background', {})
   if background == 'dark' then
@@ -30,14 +31,20 @@ end
 
 map('n', '<leader>tb', toggleBackground, { desc = 'Toggle background light/dark', silent = true })
 
+--------------------------------------------------------------------------------
 -- NvimTree
+--------------------------------------------------------------------------------
 map('n', '<C-n>', ':NvimTreeToggle<CR>', { desc = 'Open or close NvimTree', silent = true })
 map('n', '<leader>e', ':NvimTreeFocus<CR>', { desc = 'Focus NvimTree', silent = true })
 
+--------------------------------------------------------------------------------
 -- Lazygit
+--------------------------------------------------------------------------------
 map('n', '<leader>gg', ':LazyGit<CR>', { desc = 'Lazygit', silent = true })
 
+--------------------------------------------------------------------------------
 -- Scissors
+--------------------------------------------------------------------------------
 -- Keymaps in scissors popup window
 -- <C-i>: insert the next placeholder such as ${1:placeholder} in the snippet body
 -- <C-d>: duplicate a snippet
@@ -49,7 +56,11 @@ map('n', '<leader>se', function()
   require('scissors').editSnippet()
 end, { desc = '[S]nippet [E]dit', silent = true })
 
+--------------------------------------------------------------------------------
 -- Telescope
+--------------------------------------------------------------------------------
+map('n', '<leader>fs', ':Telescope persisted<CR>', { desc = 'List sessions' })
+
 local builtin = require 'telescope.builtin'
 map('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
 map('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
