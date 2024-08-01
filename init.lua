@@ -68,8 +68,8 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
-require 'mappings'
 
+-- [[Autocmds]]
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -86,20 +86,51 @@ if not vim.uv.fs_stat(lazypath) then
     error('Error cloning lazy.nvim:\n' .. out)
   end
 end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
 
+-- Persisted
+local persisted_group = vim.api.nvim_create_augroup('PersistedHooks', {})
+
+vim.api.nvim_create_autocmd({ 'User' }, {
+  pattern = 'PersistedTelescopeLoadPost',
+  group = persisted_group,
+  callback = function(session)
+    vim.fn.system('git -C "$HOME/' .. session.data.dir_path .. '" switch ' .. session.data.branch)
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'User' }, {
+  pattern = 'PersistedTelescopeLoadPre',
+  group = persisted_group,
+  callback = function(session)
+    vim.api.nvim_input '<ESC>:wa<CR>'
+
+    -- Save the currently loaded session using a global variable
+    if vim.g.persisted_loaded_session then
+      require('persisted').save { session = vim.g.persisted_loaded_session }
+    end
+
+    -- Delete all of the open buffers
+    vim.api.nvim_input '<ESC>:%bd!<CR>'
+  end,
+})
+
+-- [[Lazy]]
+vim.opt.rtp:prepend(lazypath)
 require('lazy').setup {
   { import = 'plugins' },
   { import = 'colorschemes' },
 }
 
--- Colorscheme / Theme
+-- [[Colorscheme / Theme]]
 vim.opt.background = 'light'
 -- vim.cmd.colorscheme 'caret'
 vim.cmd.colorscheme 'catppuccin'
 
 vim.api.nvim_set_hl(0, 'NormalFloat', {})
 vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
+
+-- [[Keymaps]]
+require 'mappings'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
