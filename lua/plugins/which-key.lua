@@ -9,7 +9,7 @@ return {
       { '<leader>c', group = '[C]ode' },
       { '<leader>d', group = '[D]ocument' },
       { '<leader>r', group = '[R]ename' },
-      { '<leader>s', group = '[S]earch' },
+      { '<leader>s', group = '[S]nippet' },
       { '<leader>w', group = '[W]orkspace' },
       { '<leader>t', group = '[T]rouble' },
       { '<leader>f', group = '[F]ind' },
