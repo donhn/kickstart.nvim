@@ -1,0 +1,23 @@
+return {
+  'catppuccin/nvim',
+  name = 'catppuccin',
+  lazy = false,
+  priority = 1000,
+  opts = {
+    integrations = {
+      cmp = true,
+      gitsigns = true,
+      treesitter = true,
+      mini = {
+        enabled = true,
+      },
+      indent_blankline = {
+        enabled = true,
+        scope_color = 'lavender', -- catppuccin color (eg. `lavender`) Default: text
+        colored_indent_levels = false,
+      },
+      which_key = true,
+      lsp_trouble = true,
+    },
+  },
+}
