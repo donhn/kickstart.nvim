@@ -34,7 +34,9 @@ return { -- Autocompletion
         {
           'rafamadriz/friendly-snippets',
           config = function()
-            require('luasnip.loaders.from_vscode').lazy_load()
+            require('luasnip.loaders.from_vscode').lazy_load {
+              paths = { '~/.config/nvim/lua/snippets/' },
+            }
           end,
         },
       },
@@ -101,7 +103,7 @@ return { -- Autocompletion
           luasnip.lsp_expand(args.body)
         end,
       },
-      preselect = cmp.PreselectMode.None,
+      -- preselect = cmp.PreselectMode.None,
       completion = { completeopt = 'menu,menuone,noselect' },
 
       -- For an understanding of why these mappings were
@@ -125,9 +127,9 @@ return { -- Autocompletion
 
         -- If you prefer more traditional completion keymaps,
         -- you can uncomment the following lines
-        ['<CR>'] = cmp.mapping.confirm { select = false },
-        ['<Tab>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
-        ['<S-Tab>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
+        -- ['<CR>'] = cmp.mapping.confirm { select = false },
+        -- ['<Tab>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+        -- ['<S-Tab>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
 
         -- Manually trigger a completion from nvim-cmp.
         --  Generally you don't need this, because nvim-cmp will display
@@ -147,21 +149,11 @@ return { -- Autocompletion
             luasnip.expand_or_jump()
           end
         end, { 'i', 's' }),
-        --
-        -- ['<CR>'] = cmp.mapping {
-        --   i = function(fallback)
-        --     if cmp.visible() and cmp.get_active_entry() then
-        --       cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
-        --     else
-        --       fallback()
-        --     end
-        --   end,
-        -- },
-        -- ['<C-h>'] = cmp.mapping(function()
-        --   if luasnip.locally_jumpable(-1) then
-        --     luasnip.jump(-1)
-        --   end
-        -- end, { 'i', 's' }),
+        ['<C-h>'] = cmp.mapping(function()
+          if luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          end
+        end, { 'i', 's' }),
         --
         -- ['<Tab>'] = cmp.mapping(function(fallback)
         --   if cmp.visible() then
