@@ -36,3 +36,47 @@ map('n', '<leader>e', ':NvimTreeFocus<CR>', { desc = 'Focus NvimTree', silent = 
 
 -- Lazygit
 map('n', '<leader>gg', ':LazyGit<CR>', { desc = 'Lazygit', silent = true })
+
+-- Scissors
+-- Keymaps in scissors popup window
+-- <C-i>: insert the next placeholder such as ${1:placeholder} in the snippet body
+-- <C-d>: duplicate a snippet
+map({ 'n', 'x' }, '<leader>sa', function()
+  require('scissors').addNewSnippet()
+end, { desc = '[S]nippet [A]dd', silent = true })
+
+map('n', '<leader>se', function()
+  require('scissors').editSnippet()
+end, { desc = '[S]nippet [E]dit', silent = true })
+
+-- Telescope
+local builtin = require 'telescope.builtin'
+map('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
+map('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
+map('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+-- map('n', '<leader>fs', builtin.builtin, { desc = '[F]ind [S]elect Telescope' })
+-- map('n', '<leader>fz', builtin.grep_string, { desc = '[F]ind current [W]ord' })
+map('n', '<leader>fw', builtin.live_grep, { desc = '[F]ind by [G]rep' })
+map('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
+map('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
+map('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
+map('n', '<leader>fb', builtin.buffers, { desc = '[F]ind existing buffers' })
+map('n', '<leader>fc', builtin.colorscheme, { desc = '[F]ind colorschemes' })
+
+-- Slightly advanced example of overriding default behavior and theme
+map('n', '<leader>fz', function()
+  -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+  builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = 'Fuzzily search in current buffer' })
+
+-- It's also possible to pass additional configuration options.
+--  See `:help telescope.builtin.live_grep()` for information about particular keys
+map('n', '<leader>fB', function()
+  builtin.live_grep {
+    grep_open_files = true,
+    prompt_title = 'Live Grep in Open Files',
+  }
+end, { desc = 'Search in open files.' })
