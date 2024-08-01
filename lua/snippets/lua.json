@@ -1,0 +1,1 @@
+{"Keymap":{"body":"map({'${1:n}'}, '${2:<leader>}', '${3:command}', { desc = '${4:description}', silent = true }) $0","prefix":"Keymap"}}
