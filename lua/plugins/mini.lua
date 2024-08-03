@@ -15,5 +15,16 @@ return {
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup {}
+
+    local starter = require 'mini.starter'
+    starter.setup {
+      items = {
+        starter.sections.telescope(),
+      },
+      content_hooks = {
+        starter.gen_hook.adding_bullet(),
+        starter.gen_hook.aligning('center', 'center'),
+      },
+    }
   end,
 }
