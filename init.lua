@@ -162,7 +162,19 @@ require('lazy').setup {
 }
 
 -- [[Colorscheme / Theme]]
-vim.opt.background = 'light'
+function AutoBackground()
+  local hour = tonumber(os.date '%H')
+
+  if hour >= 20 then
+    vim.opt.background = 'dark'
+  elseif hour >= 7 then
+    vim.opt.background = 'light'
+  else
+    vim.opt.background = 'dark'
+  end
+end
+
+AutoBackground()
 -- vim.cmd.colorscheme 'caret'
 vim.cmd.colorscheme 'catppuccin'
 
