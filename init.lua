@@ -68,6 +68,47 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.opt.hidden = false
+
+-- Tabline, defines how tabpages title looks like
+-- For convenience of cross-probjects development, show project names directly.
+function MyTabLine()
+  local tabline = ''
+  for index = 1, vim.fn.tabpagenr '$' do
+    -- select the highlighting
+    if index == vim.fn.tabpagenr() then
+      tabline = tabline .. '%#TabLineSel#'
+    else
+      tabline = tabline .. '%#TabLine#'
+    end
+    -- set the tab page number (for mouse clicks)
+    tabline = tabline .. '%' .. index .. 'T'
+
+    -- Get the buffer number of the first window in the tab
+    local buflist = vim.fn.tabpagebuflist(index)
+    local winnr = vim.fn.tabpagewinnr(index)
+    local bufnr = buflist[winnr]
+
+    -- Get the file name
+    local filename = vim.fn.bufname(bufnr)
+    if filename == '' then
+      filename = '[No Name]'
+    else
+      filename = vim.fn.fnamemodify(filename, ':t')
+    end
+
+    -- Construct the tab label with tab number and file name
+    tabline = tabline .. ' ' .. index .. ':' .. filename .. ' '
+  end
+  -- after the last tab fill with TabLineFill and reset tab page nr
+  tabline = tabline .. '%#TabLineFill#%T'
+  -- right-align the label to close the current tab page
+  if vim.fn.tabpagenr '$' > 1 then
+    tabline = tabline .. '%=%#TabLine#%999Xclose'
+  end
+  return tabline
+end
+vim.go.tabline = '%!v:lua.MyTabLine()'
 
 -- [[Autocmds]]
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -88,6 +129,7 @@ if not vim.uv.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 
 -- Persisted
+vim.opt.sessionoptions = 'curdir,folds,tabpages,winpos,winsize'
 local persisted_group = vim.api.nvim_create_augroup('PersistedHooks', {})
 
 vim.api.nvim_create_autocmd({ 'User' }, {
@@ -102,8 +144,6 @@ vim.api.nvim_create_autocmd({ 'User' }, {
   pattern = 'PersistedTelescopeLoadPre',
   group = persisted_group,
   callback = function(session)
-    vim.api.nvim_input '<ESC>:wa<CR>'
-
     -- Save the currently loaded session using a global variable
     if vim.g.persisted_loaded_session then
       require('persisted').save { session = vim.g.persisted_loaded_session }
