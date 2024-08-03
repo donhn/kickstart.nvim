@@ -31,6 +31,8 @@ end
 
 map('n', '<leader>tb', toggleBackground, { desc = 'Toggle background light/dark', silent = true })
 
+map('n', '<leader>nt', ':tabnew<CR>', { desc = 'New Tab', silent = true })
+
 --------------------------------------------------------------------------------
 -- NvimTree
 --------------------------------------------------------------------------------
@@ -57,9 +59,14 @@ map('n', '<leader>se', function()
 end, { desc = '[S]nippet [E]dit', silent = true })
 
 --------------------------------------------------------------------------------
+-- Persisted
+--------------------------------------------------------------------------------
+map('n', '<leader>fs', ':SessionSave<CR>', { desc = 'Save session' })
+map('n', '<leader>fl', ':Telescope persisted<CR>', { desc = '[F]ind and [Load] Sessions' })
+
+--------------------------------------------------------------------------------
 -- Telescope
 --------------------------------------------------------------------------------
-map('n', '<leader>fs', ':Telescope persisted<CR>', { desc = 'List sessions' })
 
 local builtin = require 'telescope.builtin'
 map('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
