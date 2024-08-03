@@ -1,13 +1,13 @@
 return {
   'olimorris/persisted.nvim',
-  lazy = false, -- make sure the plugin is always loaded at startup
+  cmd = { 'Telescope persisted', 'SessionSave' },
   config = {
     log_level = 'ERROR', -- One of "TRACE", "DEBUG", "ERROR"
     save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
     silent = false, -- silent nvim message when sourcing session file
     use_git_branch = true, -- create session files based on the branch of a git enabled repository
-    default_branch = 'main', -- the branch to load if a session file is not found for the current branch
-    autosave = true, -- automatically save session files when exiting Neovim
+    default_branch = '', -- the branch to load if a session file is not found for the current branch
+    autosave = false, -- automatically save session files when exiting Neovim
     should_autosave = nil, -- function to determine if a session should be autosaved
     autoload = false, -- automatically load the session for the cwd on Neovim startup
     on_autoload_no_session = nil, -- function to run when `autoload = true` but there is no session to load
@@ -15,8 +15,8 @@ return {
     allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
     ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
     ignored_branches = {
-      '^master',
-      '^main',
+      'main',
+      'master',
     }, -- table of branch patterns that are ignored for auto-saving and auto-loading
     telescope = {
       reset_prompt = true, -- Reset the Telescope prompt after an action?
